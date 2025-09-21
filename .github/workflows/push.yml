@@ -25,6 +25,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Docker Push'
+      - name: 'Docker Build & Push'
         run: |
           make docker-push
