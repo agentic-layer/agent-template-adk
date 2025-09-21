@@ -23,4 +23,9 @@ docker-build:
 docker-push:
 	- docker buildx create --name agent-builder
 	docker buildx use agent-builder
-	docker buildx build --push --platform=$(PLATFORMS) --tag $(IMG) --tag latest .
+	docker buildx build \
+		--push \
+		--platform=$(PLATFORMS) \
+		--tag $(IMAGE_TAG_BASE):$(VERSION) \
+		--tag $(IMAGE_TAG_BASE):latest \
+		.
