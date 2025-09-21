@@ -28,4 +28,6 @@ docker-push:
 		--platform=$(PLATFORMS) \
 		--tag $(IMAGE_TAG_BASE):$(VERSION) \
 		--tag $(IMAGE_TAG_BASE):latest \
-		.
+		--cache-to type=gha \
+        --cache-from type=gha \
+        .
