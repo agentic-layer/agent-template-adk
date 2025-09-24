@@ -18,16 +18,3 @@ build:
 .PHONY: docker-build
 docker-build:
 	docker build -t $(IMAGE_TAG_BASE) .
-
-.PHONY: docker-push
-docker-push:
-	- docker buildx create --name agent-builder
-	docker buildx use agent-builder
-	docker buildx build \
-		--push \
-		--platform=$(PLATFORMS) \
-		--tag $(IMAGE_TAG_BASE):$(VERSION) \
-		--tag $(IMAGE_TAG_BASE):latest \
-		--cache-to type=gha \
-        --cache-from type=gha \
-        .
