@@ -3,6 +3,7 @@ import logging
 import os
 
 from agenticlayer.agent_to_a2a import to_a2a
+from agenticlayer.otel import setup_otel
 from google.adk.agents import Agent
 from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
 from google.adk.models.lite_llm import LiteLlm
@@ -57,10 +58,12 @@ def get_tools():
 
     return tools
 
+if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
+    setup_otel()
 
 root_agent = Agent(
     name=os.environ.get("AGENT_NAME", "root_agent"),
-    model=LiteLlm(os.environ.get("AGENT_MODEL", "gemini/gemini-2.0-flash")),
+    model=LiteLlm(os.environ.get("AGENT_MODEL", "gemini/gemini-2.5-flash")),
     description=os.environ.get("AGENT_DESCRIPTION", ""),
     instruction=os.environ.get("AGENT_INSTRUCTION", ""),
     sub_agents=get_sub_agents(),

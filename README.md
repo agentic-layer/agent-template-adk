@@ -23,10 +23,11 @@ Pass agent-specific configuration via `-e` flags when running Docker. Available 
 - `AGENT_NAME`: Name of the root agent
 - `AGENT_DESCRIPTION`: Agent description
 - `AGENT_INSTRUCTION`: Agent system instruction
-- `AGENT_MODEL`: LLM model to use (default: "gemini/gemini-2.0-flash")
+- `AGENT_MODEL`: LLM model to use (default: "gemini/gemini-2.5-flash")
 - `SUB_AGENTS`: JSON configuration for sub-agents
 - `AGENT_TOOLS`: JSON configuration for MCP tools
 - `A2A_AGENT_CARD_URL`: URL for the agent's own Agent Card
+- `AGENT_OTEL_ENABLED`: Enable OpenTelemetry (default: "false")
 
 ## Quick Start with Docker
 
