@@ -7,8 +7,10 @@ from agenticlayer.otel import setup_otel
 from google.adk.agents import Agent
 from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
 from google.adk.models.lite_llm import LiteLlm
+from google.adk.planners import BuiltInPlanner
 from google.adk.tools.mcp_tool import StreamableHTTPConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+from google.genai import types
 
 
 def get_sub_agents():
@@ -68,6 +70,12 @@ root_agent = Agent(
     instruction=os.environ.get("AGENT_INSTRUCTION", ""),
     sub_agents=get_sub_agents(),
     tools=get_tools(),
+    planner=BuiltInPlanner(
+        thinking_config=types.ThinkingConfig(
+            include_thoughts=os.environ.get("AGENT_INCLUDE_THOUGHTS", "True").lower() == "true",
+            thinking_budget=int(os.environ.get("AGENT_THINKING_BUDGET", 1024)),
+        )
+    ),
 )
 
 
