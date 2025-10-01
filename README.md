@@ -28,6 +28,8 @@ Pass agent-specific configuration via `-e` flags when running Docker. Available 
 - `AGENT_TOOLS`: JSON configuration for MCP tools
 - `A2A_AGENT_CARD_URL`: URL for the agent's own Agent Card
 - `AGENT_OTEL_ENABLED`: Enable OpenTelemetry (default: "false")
+- `AGENT_INCLUDE_THOUGHTS`: Include agent thoughts in responses (default: "true")
+- `AGENT_THINKING_BUDGET`: Max tokens for LLM responses (default: 1024)
 
 ## Quick Start with Docker
 
