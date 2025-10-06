@@ -14,4 +14,4 @@ EXPOSE 8000
 COPY --from=build_python /app/.venv ./.venv
 COPY . ./
 
-ENTRYPOINT ["sh", "-c", "uvicorn main:app --host=0.0.0.0"]
+ENTRYPOINT ["uvicorn", "main:app", "--host=0.0.0.0"]
