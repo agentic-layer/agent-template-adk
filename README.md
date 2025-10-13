@@ -26,7 +26,7 @@ Pass agent-specific configuration via `-e` flags when running Docker. Available 
 - `AGENT_MODEL`: LLM model to use (default: "gemini/gemini-2.5-flash")
 - `SUB_AGENTS`: JSON configuration for sub-agents
 - `AGENT_TOOLS`: JSON configuration for MCP tools
-- `A2A_AGENT_CARD_URL`: URL for the agent's own Agent Card
+- `AGENT_A2A_RPC_URL`: URL where Agent is available via RPC
 - `AGENT_OTEL_ENABLED`: Enable OpenTelemetry (default: "false")
 - `AGENT_INCLUDE_THOUGHTS`: Include agent thoughts in responses (default: "true")
 - `AGENT_THINKING_BUDGET`: Max tokens for LLM responses (default: 1024)
@@ -51,7 +51,7 @@ docker run --rm -it -p 8000:8000 \
   -e AGENT_DESCRIPTION="A helpful assistant agent" \
   -e AGENT_INSTRUCTION="You are a helpful assistant that can answer questions and help with tasks." \
   -e AGENT_MODEL="gemini/gemini-2.0-flash" \
-  -e A2A_AGENT_CARD_URL="http://localhost:8000/.well-known/agent-card.json" \
+  -e AGENT_A2A_RPC_URL="http://localhost:8000" \
   --env-file .env \
   ghcr.io/agentic-layer/agent-template-adk
 ```
@@ -64,7 +64,7 @@ docker run --rm -it -p 8000:8000 \
   -e AGENT_INSTRUCTION="You are a research assistant that can search the web and analyze documents." \
   -e SUB_AGENTS='{"example_agent":{"url":"https://example.com/.well-known/agent-card.json"}}' \
   -e AGENT_TOOLS='{"web_fetch":{"url":"https://remote.mcpservers.org/fetch/mcp"}}' \
-  -e A2A_AGENT_CARD_URL="http://localhost:8000/.well-known/agent-card.json" \
+  -e AGENT_A2A_RPC_URL="http://localhost:8000" \
   --env-file .env \
   ghcr.io/agentic-layer/agent-template-adk
 ```
