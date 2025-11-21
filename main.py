@@ -63,6 +63,10 @@ def get_tools():
 if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
     setup_otel()
 
+# Suppress some warnings by default - unfortunately, the experimental warnings for A2A can not be suppressed yet
+os.environ.setdefault("ADK_SUPPRESS_GEMINI_LITELLM_WARNINGS", "true")
+os.environ.setdefault("ADK_SUPPRESS_EXPERIMENTAL_FEATURE_WARNINGS", "true")
+
 root_agent = Agent(
     name=os.environ.get("AGENT_NAME", "root_agent"),
     model=LiteLlm(os.environ.get("AGENT_MODEL", "gemini/gemini-2.5-flash")),
