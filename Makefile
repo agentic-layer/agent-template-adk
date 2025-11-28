@@ -1,7 +1,4 @@
-VERSION ?= $(shell git describe --tags --always | sed 's/^v//')
-IMAGE_TAG_BASE ?= ghcr.io/agentic-layer/agent-template-adk
-IMG ?= $(IMAGE_TAG_BASE):$(VERSION)
-PLATFORMS ?= linux/arm64,linux/amd64
+IMG ?= ghcr.io/agentic-layer/agent-template-adk:test
 
 ifneq (,$(wildcard ./.env))
     include .env
@@ -17,4 +14,12 @@ build:
 
 .PHONY: docker-build
 docker-build:
-	docker build -t $(IMAGE_TAG_BASE) .
+	docker build -t $(IMG) .
+
+.PHONY: run
+run: build
+	UVICORN_PORT=8001 uv run uvicorn main:app
+
+.PHONY: docker-run
+docker-run: docker-build
+	docker run --rm -it -p 8001:8001 --env-file .env -e UVICORN_PORT=8001 $(IMG)
