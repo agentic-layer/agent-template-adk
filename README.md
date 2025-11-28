@@ -32,6 +32,28 @@ Available environment variables:
 | `AGENT_INCLUDE_THOUGHTS` | Include agent thoughts in responses      | `true`                    | `false`                                                                                                        |
 | `AGENT_THINKING_BUDGET`  | Max tokens for LLM responses             | `1024`                    | `2048`                                                                                                         |
 
+The JSON configuration for `SUB_AGENTS` should follow this structure:
+```json5
+{
+  "agent_name": {
+    "url": "http://agent-url/.well-known/agent-card.json",
+    // Optional: interaction type, defaults to "tool_call"
+    // "transfer" for full delegation, "tool_call" for tool-like usage
+    "interaction_type": "transfer|tool_call"
+  }
+}
+```
+
+The JSON configuration for `AGENT_TOOLS` should follow this structure:
+```json5
+{
+  "tool_name": {
+    "url": "https://mcp-tool-endpoint"
+  }
+}
+```
+
+
 ## Usage
 
 Create a `.env` file based on the provided `.env.example` to store your secrets (e.g., API keys)
