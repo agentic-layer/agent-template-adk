@@ -32,51 +32,75 @@ Available environment variables:
 | `AGENT_INCLUDE_THOUGHTS` | Include agent thoughts in responses      | `true`                    | `false`                                                                                                        |
 | `AGENT_THINKING_BUDGET`  | Max tokens for LLM responses             | `1024`                    | `2048`                                                                                                         |
 
-The JSON configuration for `SUB_AGENTS` should follow this structure:
-```json5
-{
-  "agent_name": {
-    "url": "http://agent-url/.well-known/agent-card.json",
-    // Optional: interaction type, defaults to "tool_call"
-    // "transfer" for full delegation, "tool_call" for tool-like usage
-    "interaction_type": "transfer|tool_call"
-  }
-}
-```
-
-The JSON configuration for `AGENT_TOOLS` should follow this structure:
-```json5
-{
-  "tool_name": {
-    "url": "https://mcp-tool-endpoint"
-  }
-}
-```
-
+For detailed configuration of sub-agents and MCP tools, refer to the [Agentic Layer SDK](https://github.com/agentic-layer/sdk-python/blob/main/adk/README.md#configuration)
 
 ## Usage
+
+You can use the prebuild docker images like this:
+
+```shell
+docker run \
+  -e AGENT_NAME="my_helper" \
+  -e AGENT_DESCRIPTION="A helpful assistant agent" \
+  -e AGENT_INSTRUCTION="You are a helpful assistant" \
+  -p 8000:8000 \
+  ghcr.io/agentic-layer/agent-template-adk:latest
+```
+
+## Development and Testing
 
 Create a `.env` file based on the provided `.env.example` to store your secrets (e.g., API keys)
 and configuration.
 
+There are multiple agents available in the [tests/agents](tests/agents) folder for testing purposes.
+They can be run all together in Docker Compose or individually via Python for debugging.
+Combining both methods is not recommended for the agents, as the URLs have to be adjusted accordingly.
+
+If you want to test the Python SDK (https://github.com/agentic-layer/sdk-python/tree/main/adk),
+you can include a local copy in the build, see [pyproject.toml](pyproject.toml).
+This will not work with Docker, as the docker build process cannot access local files outside the build context.
+
+
 ### Run with Python
 
+Run the agents in the following order due to dependencies.
+Look into [tests/run-agent.sh](tests/run-agent.sh) for details on launching an agent in your IDE for debugging.
+
 ```shell
-make run
+# Run Analyzer agent (no further dependencies)
+./tests/run-agent.sh analyzer
+```
+```shell
+# Start an MCP tool server for testing
+docker compose up mcp-fetch
+```
+```shell
+# Run data gatherer agent (depends on the MCP tool server)
+./tests/run-agent.sh data-gatherer
+```
+```shell
+# Run research coordinator agent (depends on both the data gatherer and analyzer agents)
+./tests/run-agent.sh research-coordinator
 ```
 
 ### Run with Docker
 
 ```shell
-make docker-run
+docker compose up --build
 ```
 
 ### Send message to the agent
-The agent will be available at `http://localhost:8001` and will expose an Agent Card at 
+The root agent will be available at `http://localhost:8001` and will expose an Agent Card at 
 `http://localhost:8001/.well-known/agent-card.json`.
 
 Ask the agent a question:
 
 ```shell
-./scripts/send_message.sh "What is the purpose of life?"
+./tests/send-message.sh "Where does the statement 'What is the meaning of life? - 42' originate from?"
+```
+
+You can also send messages to other agents:
+
+```shell
+A2A_RPC_URL="http://localhost:8003" ./tests/send-message.sh "Please analyze the sentiment of the following text: 'I love programming!'"
 ```

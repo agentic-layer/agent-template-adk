@@ -3,7 +3,7 @@ name = "agent-template-adk"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
-    "agentic-layer-sdk-adk>=0.7.1",
+    "agentic-layer-sdk-adk>=0.7.2",
 ]
 
 [dependency-groups]

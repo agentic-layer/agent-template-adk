@@ -1,0 +1,62 @@
+services:
+  mcp-fetch:
+    image: ghcr.io/supercorp-ai/supergateway:3.4.3-uvx
+    command:
+      - "--port"
+      - "8080"
+      - "--stdio"
+      - "uvx mcp-server-fetch"
+      - "--outputTransport"
+      - "streamableHttp"
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  research-coordinator:
+    build:
+      context: .
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+      - tests/agents/research-coordinator.env
+    environment:
+      # Override URLs for Docker internal networking
+      UVICORN_PORT: 8000
+      AGENT_A2A_RPC_URL: "http://research-coordinator:8000"
+      SUB_AGENTS: '{"data_gatherer":{"url":"http://data-gatherer:8000/.well-known/agent-card.json","interaction_type":"tool_call"},"analyzer":{"url":"http://analyzer:8000/.well-known/agent-card.json","interaction_type":"transfer"}}'
+    depends_on:
+      - data-gatherer
+      - analyzer
+    restart: unless-stopped
+
+  data-gatherer:
+    build:
+      context: .
+    ports:
+      - "8002:8000"
+    env_file:
+      - .env
+      - tests/agents/data-gatherer.env
+    environment:
+      # Override URLs for Docker internal networking
+      UVICORN_PORT: 8000
+      AGENT_A2A_RPC_URL: "http://data-gatherer:8000"
+      AGENT_TOOLS: '{"web_fetch":{"url":"http://mcp-fetch:8080/mcp"}}'
+    depends_on:
+      - mcp-fetch
+    restart: unless-stopped
+
+  analyzer:
+    build:
+      context: .
+    ports:
+      - "8003:8000"
+    env_file:
+      - .env
+      - tests/agents/analyzer.env
+    environment:
+      # Override URLs for Docker internal networking
+      UVICORN_PORT: 8000
+      AGENT_A2A_RPC_URL: "http://analyzer:8000"
+    restart: unless-stopped

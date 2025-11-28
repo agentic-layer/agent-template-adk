@@ -6,7 +6,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 .PHONY: all
-all: docker-build
+all: build
 
 .PHONY: build
 build:
@@ -15,14 +15,6 @@ build:
 .PHONY: docker-build
 docker-build:
 	docker build -t $(IMG) .
-
-.PHONY: run
-run: build
-	UVICORN_PORT=8001 uv run uvicorn main:app
-
-.PHONY: docker-run
-docker-run: docker-build
-	docker run --rm -it -p 8001:8001 --env-file .env -e UVICORN_PORT=8001 $(IMG)
 
 .PHONY: check
 check: build
