@@ -3,7 +3,7 @@ name = "agent-template-adk"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
-    "agentic-layer-sdk-adk>=0.5.0",
+    "agentic-layer-sdk-adk>=0.7.0",
 ]
 
 [build-system]
@@ -14,3 +14,7 @@ build-backend = "hatchling.build"
 include = [
     "main.py"
 ]
+
+# Comment-in to activate local development path to the ADK package
+#[tool.uv.sources]
+#agentic-layer-sdk-adk = { path = "../sdk-python/adk", editable = true }
