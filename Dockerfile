@@ -10,6 +10,7 @@ FROM python:3.14-slim-trixie AS final
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
+ENV UVICORN_PORT=8000
 
 COPY --from=build_python /app/.venv ./.venv
 COPY . ./
