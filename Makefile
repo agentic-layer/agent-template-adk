@@ -23,3 +23,14 @@ run: build
 .PHONY: docker-run
 docker-run: docker-build
 	docker run --rm -it -p 8001:8001 --env-file .env -e UVICORN_PORT=8001 $(IMG)
+
+.PHONY: check
+check: build
+	uv run mypy .
+	uv run ruff check
+
+
+.PHONY: check-fix
+check-fix: build
+	uv run ruff format
+	uv run ruff check --fix
