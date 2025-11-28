@@ -14,7 +14,7 @@ from google.genai import types
 load_dotenv()
 
 # Set up ADK logging
-LOGGING_FORMAT = '%(asctime)s - %(levelname)s - %(name)s - %(filename)s:%(lineno)d - %(message)s'
+LOGGING_FORMAT = "%(asctime)s - %(levelname)s - %(name)s - %(filename)s:%(lineno)d - %(message)s"
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"), format=LOGGING_FORMAT)
 
 if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
