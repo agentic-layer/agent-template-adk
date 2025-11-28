@@ -1,5 +1,6 @@
 import logging
 import os
+import warnings
 
 from agenticlayer.agent_to_a2a import to_a2a
 from agenticlayer.config import parse_sub_agents, parse_tools
@@ -20,7 +21,9 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"), format=LOGGING_FOR
 if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
     setup_otel()
 
-# Suppress some warnings by default - unfortunately, the experimental warnings for A2A can not be suppressed yet
+# Suppress some warnings by default - unfortunately, the experimental warnings for A2A can not be suppressed
+# using the ADK environment variable alone, so we filter them here.
+warnings.filterwarnings("ignore", category=UserWarning, message="\\[EXPERIMENTAL\\] .*")
 os.environ.setdefault("ADK_SUPPRESS_GEMINI_LITELLM_WARNINGS", "true")
 os.environ.setdefault("ADK_SUPPRESS_EXPERIMENTAL_FEATURE_WARNINGS", "true")
 
