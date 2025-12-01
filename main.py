@@ -1,4 +1,3 @@
-import logging
 import os
 import warnings
 
@@ -11,12 +10,13 @@ from google.adk.models.lite_llm import LiteLlm
 from google.adk.planners import BuiltInPlanner
 from google.genai import types
 
+from loguru_config import setup_logging
+
 # Load environment variables from .env file
 load_dotenv()
 
-# Set up ADK logging
-LOGGING_FORMAT = "%(asctime)s - %(levelname)s - %(name)s - %(filename)s:%(lineno)d - %(message)s"
-logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"), format=LOGGING_FORMAT)
+# Set up logging
+setup_logging()
 
 if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
     setup_otel()
