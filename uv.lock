@@ -35,7 +35,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "agentic-layer-sdk-adk", specifier = ">=0.7.2" },
+    { name = "agentic-layer-sdk-adk", specifier = ">=0.8.0" },
     { name = "loguru", specifier = ">=0.7.3" },
 ]
 
@@ -47,19 +47,20 @@ dev = [
 
 [[package]]
 name = "agentic-layer-sdk-adk"
-version = "0.7.2"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-adk", extra = ["a2a"] },
+    { name = "httpx-retries" },
     { name = "litellm" },
     { name = "openinference-instrumentation-google-adk" },
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-instrumentation-httpx" },
     { name = "opentelemetry-instrumentation-starlette" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1c/ad/835ee4f1337f0095b21e6541721bb4ba5b412d8ba64f0f8419927fd1d50e/agentic_layer_sdk_adk-0.7.2.tar.gz", hash = "sha256:881faa42d77d2a7e7baecd1a533dac93d850fecb8cafee9d2ca7de3403621502", size = 8872, upload-time = "2025-11-28T16:43:41.361Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/77/bf/01d340a8431f3170589bee71ebcf7e4fa91718f0b794fcc2a88437b809a0/agentic_layer_sdk_adk-0.8.0.tar.gz", hash = "sha256:18a05e46f84befc8865efaab66e5d902627097691ebde64e1709b2368851303c", size = 11371, upload-time = "2025-12-03T09:06:30.502Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fa/49/81e3e03492c6cf494f993d17207977f139686c95cbb3336afe0de9fb3a60/agentic_layer_sdk_adk-0.7.2-py3-none-any.whl", hash = "sha256:d7ffa738b2db41ddae91b46ff2e6ca57227588011255cc807377cae1dd0a10ee", size = 7785, upload-time = "2025-11-28T16:43:40.007Z" },
+    { url = "https://files.pythonhosted.org/packages/da/9a/7300f36caaac1771c0eceb6e238c796af53ee2e214b6a297eb18b118cb77/agentic_layer_sdk_adk-0.8.0-py3-none-any.whl", hash = "sha256:0e9c1a155993153208a2a3c694bb9b36e12ae65810524b6eea8ac795595412f6", size = 9785, upload-time = "2025-12-03T09:06:29.515Z" },
 ]
 
 [[package]]
@@ -1064,6 +1065,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc", size = 141406, upload-time = "2024-12-06T15:37:23.222Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl", hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad", size = 73517, upload-time = "2024-12-06T15:37:21.509Z" },
+]
+
+[[package]]
+name = "httpx-retries"
+version = "0.4.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/22/40/b9b5e4c16fb86d2999840bb795b28670a61856c7f48f030530b412bf4133/httpx_retries-0.4.5.tar.gz", hash = "sha256:acee306d7384eefad71ac12fefe8b13d7b41c19595c538e68d9bd7e40e59539d", size = 13015, upload-time = "2025-10-17T15:55:23.871Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/0a/2626b5a2678f8072ba3174d3e40f81429fdc41d1cb993280dbc7ba3c4e3f/httpx_retries-0.4.5-py3-none-any.whl", hash = "sha256:ae22d6ef197a2da49242246a01d721474cbd6516b1fef155f6da694ee410bb37", size = 8301, upload-time = "2025-10-17T15:55:22.869Z" },
 ]
 
 [[package]]

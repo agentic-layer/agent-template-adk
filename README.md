@@ -63,6 +63,12 @@ This will not work with Docker, as the docker build process cannot access local 
 
 ### Run with Python
 
+Install dependencies:
+
+```shell
+uv sync
+```
+
 Run the agents in the following order due to dependencies.
 Look into [tests/run-agent.sh](tests/run-agent.sh) for details on launching an agent in your IDE for debugging.
 
