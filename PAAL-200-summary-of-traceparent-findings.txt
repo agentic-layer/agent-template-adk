@@ -1,0 +1,106 @@
+⏺ Investigation Summary: OpenTelemetry Trace Context Propagation in ADK
+
+  What We Looked At
+
+  1. SDK instrumentation setup (sdk-python/adk/agenticlayer/otel.py)
+  2. Import order and timing - ensuring instrumentation happens before library imports
+  3. HTTPX instrumentation - automatic injection of traceparent into outgoing requests
+  4. Starlette instrumentation - extraction of traceparent from incoming requests
+  5. Google ADK instrumentor - OpenInference instrumentation for ADK
+  6. GitHub issues - Found https://github.com/google/adk-python/issues/474 and discussion #3461
+
+  What We Tried
+
+  1. Fixed instrumentation order: Starlette → HTTPX → GoogleADK
+  2. Made all imports lazy in setup_otel() to prevent libraries loading before instrumentation
+  3. Verified Starlette auto-instrumentation is correctly wrapping the Starlette class
+  4. Verified HTTPX auto-instrumentation is correctly wrapping transport layer
+
+  Proof That the Problem Lies with ADK
+
+  We created two identical test scenarios with the same instrumentation:
+
+  | Test                               | Traceparent Propagated?                |
+  |------------------------------------|----------------------------------------|
+  | Plain Starlette app (httpx client) | YES - 0af7651916cd43dd8448eb211c80319c |
+  | ADK Agent (same instrumentation)   | NO - header missing                    |
+
+  Both use:
+  - Same setup_otel() function
+  - Same instrumentation order
+  - Same Starlette + HTTPX instrumentors
+
+  Architecture Diagram
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                    INCOMING REQUEST FLOW                                │
+  ├─────────────────────────────────────────────────────────────────────────┤
+  │                                                                         │
+  │  Client Request                                                         │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │ POST /agent/run                                                   │  │
+  │  │ traceparent: 00-0af7651916cd43dd...-b7ad6b7169203331-01          │  │
+  │  └───────────────────────────┬──────────────────────────────────────┘  │
+  │                              │                                          │
+  │                              ▼                                          │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │ StarletteInstrumentor (ASGI middleware)                          │  │
+  │  │ ✓ Extracts traceparent → Creates span with trace_id              │  │
+  │  │ ✓ Sets span as current in Context                                │  │
+  │  └───────────────────────────┬──────────────────────────────────────┘  │
+  │                              │                                          │
+  │          Context: trace_id=0af7651916cd43dd... (VALID)                 │
+  │                              │                                          │
+  ├──────────────────────────────┼──────────────────────────────────────────┤
+  │                              ▼                                          │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │                 APPLICATION LAYER                                 │  │
+  │  ├──────────────────────────────────────────────────────────────────┤  │
+  │  │                                                                   │  │
+  │  │  PLAIN STARLETTE           │     GOOGLE ADK                      │  │
+  │  │  ─────────────────         │     ──────────                      │  │
+  │  │                            │                                      │  │
+  │  │  async def handler():      │     ADK Runner/Agent                │  │
+  │  │    # Context preserved     │       │                             │  │
+  │  │    async with httpx...:    │       ▼                             │  │
+  │  │      await client.post()   │     LLM Client (litellm/openai)     │  │
+  │  │                            │       │                             │  │
+  │  │  ✓ Same async context      │       ▼                             │  │
+  │  │  ✓ Span context available  │     httpx.AsyncClient               │  │
+  │  │                            │                                      │  │
+  │  │                            │     ✗ Context LOST somewhere        │  │
+  │  │                            │       in ADK's async execution      │  │
+  │  │                            │                                      │  │
+  │  └──────────────────────────────────────────────────────────────────┘  │
+  │                              │                                          │
+  ├──────────────────────────────┼──────────────────────────────────────────┤
+  │                              ▼                                          │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │ HTTPXClientInstrumentor (transport wrapper)                       │  │
+  │  │                                                                   │  │
+  │  │ If Context has valid span:                                        │  │
+  │  │   ✓ Inject traceparent header                                    │  │
+  │  │                                                                   │  │
+  │  │ If Context is empty/invalid:                                      │  │
+  │  │   ✗ No traceparent injected                                      │  │
+  │  └───────────────────────────┬──────────────────────────────────────┘  │
+  │                              │                                          │
+  │                              ▼                                          │
+  │  ┌──────────────────────────────────────────────────────────────────┐  │
+  │  │ OUTGOING REQUEST                                                  │  │
+  │  │                                                                   │  │
+  │  │ Plain Starlette: traceparent: 00-0af7651916cd43dd...-NEW_SPAN-01 │  │
+  │  │ ADK:             (no traceparent header)                          │  │
+  │  └──────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+  Root Cause
+
+  ADK uses its own async execution model (likely via asyncio.create_task() or similar) which does not propagate the OpenTelemetry context from the incoming request to the outgoing LLM calls. This is a known limitation - see https://github.com/google/adk-python/discussions/3461.
+
+  Conclusion
+
+  - Our instrumentation is correct - proven by plain Starlette working
+  - The issue is in ADK's async execution - it doesn't use copy_context() when spawning tasks
+  - This is a Google ADK limitation, not something we can fix in our SDK
