@@ -19,7 +19,8 @@ load_dotenv()
 setup_logging()
 
 if os.environ.get("AGENT_OTEL_ENABLED", "false").lower() == "true":
-    setup_otel()
+    capture_http_bodies = os.environ.get("AGENT_OTEL_CAPTURE_HTTP_BODIES", "false").lower() == "true"
+    setup_otel(capture_http_bodies=capture_http_bodies)
 
 # Suppress some warnings by default - unfortunately, the experimental warnings for A2A can not be suppressed
 # using the ADK environment variable alone, so we filter them here.

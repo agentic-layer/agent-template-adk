@@ -35,7 +35,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "agentic-layer-sdk-adk", specifier = ">=0.8.1" },
+    { name = "agentic-layer-sdk-adk", specifier = ">=0.9.0" },
     { name = "loguru", specifier = ">=0.7.3" },
 ]
 
@@ -47,7 +47,7 @@ dev = [
 
 [[package]]
 name = "agentic-layer-sdk-adk"
-version = "0.8.1"
+version = "0.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-adk", extra = ["a2a"] },
@@ -58,9 +58,9 @@ dependencies = [
     { name = "opentelemetry-instrumentation-httpx" },
     { name = "opentelemetry-instrumentation-starlette" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ba/e9/ebcdb0a602b6baf0fa337a52bfc800d9476ae7ef349af324574af8882cd3/agentic_layer_sdk_adk-0.8.1.tar.gz", hash = "sha256:92dddc51c070d0ab8b8f17177c8496556df35de156c8ba73eea43e4bd864f18a", size = 11394, upload-time = "2025-12-03T10:11:17.437Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d8/84/8a326560c91a9dbcf5b722b214fcb4f80469a3f7e74816b47b5912c689ce/agentic_layer_sdk_adk-0.9.0.tar.gz", hash = "sha256:237397cb16fb0945206f9a92ac2f2a8aa2ae5b08c25816f61f3858125c50d445", size = 13372, upload-time = "2026-01-28T14:50:47.177Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7c/c5/bc60010514e8d6ffc0b2c20f931603ed01899b059b0e0af7d4b69d4a56ee/agentic_layer_sdk_adk-0.8.1-py3-none-any.whl", hash = "sha256:5c8a60ece1d0b649f1176a2633936ffdd61e3b8d2cf2acf69eeda82ddc00ea2b", size = 9788, upload-time = "2025-12-03T10:11:16.154Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/ff/6293252a80c466b5fa3b4f13886f18999f1f7002ff7424f14de26e88a5d3/agentic_layer_sdk_adk-0.9.0-py3-none-any.whl", hash = "sha256:5f5bbd375720affd9c0fb49aa9e1e461cb0e231da255c9fab2041afb0e7edb27", size = 12491, upload-time = "2026-01-28T14:50:45.738Z" },
 ]
 
 [[package]]
