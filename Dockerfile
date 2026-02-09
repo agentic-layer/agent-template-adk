@@ -1,7 +1,7 @@
 FROM python:3.14-trixie AS build_python
 WORKDIR /app
 
-COPY --from=ghcr.io/astral-sh/uv:0.9 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.10 /uv /uvx /bin/
 COPY ./pyproject.toml ./uv.lock ./
 RUN uv sync --frozen --no-default-groups --no-python-downloads
 
