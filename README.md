@@ -28,8 +28,7 @@ Available environment variables:
 | `SUB_AGENTS`                     | JSON configuration for sub-agents        | `{}`                      | `{"weather_agent":{"url":"http://localhost:8002/.well-known/agent-card.json","interaction_type":"tool_call"}}` |
 | `AGENT_TOOLS`                    | JSON configuration for MCP tools         | `{}`                      | `{"web_fetch":{"url":"https://remote.mcpservers.org/fetch/mcp"}}`                                              |
 | `AGENT_A2A_RPC_URL`              | RPC URL inserted into the A2A agent card | `None`                    | `https://my-agent.example.com/a2a`                                                                             |
-| `AGENT_OTEL_ENABLED`             | Enable OpenTelemetry                     | `false`                   | `true`                                                                                                         |
-| `AGENT_OTEL_CAPTURE_HTTP_BODIES` | Include request/response body in spans   | `false`                   | `true`                                                                                                         |
+| `AGENT_OTEL_ENABLED`             | Enable OpenTelemetry                     | `true`                    | `true`                                                                                                         |
 | `AGENT_INCLUDE_THOUGHTS`         | Include agent thoughts in responses      | `true`                    | `false`                                                                                                        |
 | `AGENT_THINKING_BUDGET`          | Max tokens for LLM responses             | `1024`                    | `2048`                                                                                                         |
 
