@@ -1,13 +1,9 @@
 services:
   mcp-fetch:
-    image: ghcr.io/supercorp-ai/supergateway:3.4.3-uvx
-    command:
-      - "--port"
-      - "8080"
-      - "--stdio"
-      - "uvx mcp-server-fetch"
-      - "--outputTransport"
-      - "streamableHttp"
+    build:
+      context: .
+      dockerfile: mcp-proxy.Dockerfile
+    command: "--pass-environment --host=0.0.0.0 --port=8080 uvx mcp-server-fetch"
     ports:
       - "8080:8080"
     restart: unless-stopped
