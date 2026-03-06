@@ -25,6 +25,7 @@ include = [
 # Comment-in to activate local development path to the ADK package
 #[tool.uv.sources]
 #agentic-layer-sdk-adk = { path = "../sdk-python/adk", editable = true }
+#agentic-layer-sdk = { path = "../sdk-python/shared", editable = true }
 
 
 [tool.ruff]

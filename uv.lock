@@ -47,7 +47,7 @@ dev = [
 
 [[package]]
 name = "agentic-layer-sdk"
-version = "0.13.4"
+version = "0.13.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "a2a-sdk" },
@@ -60,14 +60,14 @@ dependencies = [
     { name = "pydantic" },
     { name = "starlette" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2a/f5/fc5f25d43f5d57963e1ac163e3df773ccc46fcd45034c4eec34419b191e0/agentic_layer_sdk-0.13.4.tar.gz", hash = "sha256:87a6cb2f2faea549eebc49784acdb8b60d90bdc3cc19656c4471b4989b434687", size = 44195, upload-time = "2026-03-06T07:01:32.727Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/83/37/76ff58fd83a3ef86a39ce76875013e3ef4f3087333eed4f5a5305fb108d1/agentic_layer_sdk-0.13.6.tar.gz", hash = "sha256:ec4d1ba9345e9ce46b9501e0642698439c1b33c45a836f4bc8717e20a7d02a46", size = 44733, upload-time = "2026-03-06T16:31:18.089Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5c/82/c63e13f5a2d995688351d95a444bc499cd2164e49e78eb78f24034505ec6/agentic_layer_sdk-0.13.4-py3-none-any.whl", hash = "sha256:69fd81e8178e06a440484ecb6f75d0a3d7edccf9dd120cfff6543a8838f7e9fb", size = 7530, upload-time = "2026-03-06T07:01:31.6Z" },
+    { url = "https://files.pythonhosted.org/packages/15/ba/572f78211a875c506c552d9180e364265f11053e4bd716d84150931877ba/agentic_layer_sdk-0.13.6-py3-none-any.whl", hash = "sha256:5de81bfaa900434df52cc48355537b2a684037343ce103f5feb61eab7bf35525", size = 8132, upload-time = "2026-03-06T16:31:16.838Z" },
 ]
 
 [[package]]
 name = "agentic-layer-sdk-adk"
-version = "0.13.4"
+version = "0.13.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "agentic-layer-sdk" },
@@ -76,9 +76,9 @@ dependencies = [
     { name = "litellm" },
     { name = "openinference-instrumentation-google-adk" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e8/87/8cce391989e191220f942f1bccbb35764baee21d551141dfb3b4e464fff9/agentic_layer_sdk_adk-0.13.4.tar.gz", hash = "sha256:c97ca006aa393793d07e0f175f9371d99248ea1fd9e1218c5291308f6e4bc222", size = 141885, upload-time = "2026-03-06T07:02:03.957Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/37/b2/474a97284a08d93b83949d53205104e9208dae462ecff4af40d9543b1369/agentic_layer_sdk_adk-0.13.6.tar.gz", hash = "sha256:d2919d1690c3da85cafd5377dd0a5ecfe52f16cb7b6b56760fbc6bac189a4c31", size = 141824, upload-time = "2026-03-06T16:32:00.358Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/60/b4/8278904a4c658ea57bb1817040b0663d2d5808a8e7230ce0612b6371f696/agentic_layer_sdk_adk-0.13.4-py3-none-any.whl", hash = "sha256:c6d1105d67b496d87a8498672501cbdc9c9b548cb49bb853739cc89c06044cde", size = 13200, upload-time = "2026-03-06T07:02:02.487Z" },
+    { url = "https://files.pythonhosted.org/packages/8d/08/4d03f5dd1b48b27d54cede065b1e22253bcd3158760b33dbc78b2df6c4aa/agentic_layer_sdk_adk-0.13.6-py3-none-any.whl", hash = "sha256:bc30afaec44499f47c74a1b895f25b09d1a91bd9fecf1dfee018eb8ddd82e0f6", size = 13130, upload-time = "2026-03-06T16:31:58.164Z" },
 ]
 
 [[package]]
@@ -1210,7 +1210,7 @@ wheels = [
 
 [[package]]
 name = "huggingface-hub"
-version = "1.5.0"
+version = "1.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "filelock" },
@@ -1223,9 +1223,9 @@ dependencies = [
     { name = "typer" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ae/76/b5efb3033d8499b17f9386beaf60f64c461798e1ee16d10bc9c0077beba5/huggingface_hub-1.5.0.tar.gz", hash = "sha256:f281838db29265880fb543de7a23b0f81d3504675de82044307ea3c6c62f799d", size = 695872, upload-time = "2026-02-26T15:35:32.745Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d5/7a/304cec37112382c4fe29a43bcb0d5891f922785d18745883d2aa4eb74e4b/huggingface_hub-1.6.0.tar.gz", hash = "sha256:d931ddad8ba8dfc1e816bf254810eb6f38e5c32f60d4184b5885662a3b167325", size = 717071, upload-time = "2026-03-06T14:19:18.524Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ec/74/2bc951622e2dbba1af9a460d93c51d15e458becd486e62c29cc0ccb08178/huggingface_hub-1.5.0-py3-none-any.whl", hash = "sha256:c9c0b3ab95a777fc91666111f3b3ede71c0cdced3614c553a64e98920585c4ee", size = 596261, upload-time = "2026-02-26T15:35:31.1Z" },
+    { url = "https://files.pythonhosted.org/packages/92/e3/e3a44f54c8e2f28983fcf07f13d4260b37bd6a0d3a081041bc60b91d230e/huggingface_hub-1.6.0-py3-none-any.whl", hash = "sha256:ef40e2d5cb85e48b2c067020fa5142168342d5108a1b267478ed384ecbf18961", size = 612874, upload-time = "2026-03-06T14:19:16.844Z" },
 ]
 
 [[package]]
