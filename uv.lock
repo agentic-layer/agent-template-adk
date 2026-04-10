@@ -35,7 +35,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "agentic-layer-sdk-adk", specifier = ">=0.13.4" },
+    { name = "agentic-layer-sdk-adk", specifier = ">=0.16.0" },
     { name = "loguru", specifier = ">=0.7.3" },
 ]
 
@@ -67,7 +67,7 @@ wheels = [
 
 [[package]]
 name = "agentic-layer-sdk-adk"
-version = "0.15.0"
+version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "agentic-layer-sdk" },
@@ -75,10 +75,15 @@ dependencies = [
     { name = "httpx-retries" },
     { name = "litellm" },
     { name = "openinference-instrumentation-google-adk" },
+    { name = "opentelemetry-exporter-otlp-proto-grpc" },
+    { name = "opentelemetry-exporter-otlp-proto-http" },
+    { name = "opentelemetry-instrumentation-httpx" },
+    { name = "opentelemetry-instrumentation-logging" },
+    { name = "opentelemetry-instrumentation-starlette" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/31/ce/0e7c7deae353148a1d4d5236c9e6f49b6b940c553216370780c7be5b3af3/agentic_layer_sdk_adk-0.15.0.tar.gz", hash = "sha256:d30180e3a9e98e958dec3a6f5271d020b7daacfe57cf0a65f03988c96beb0e1f", size = 144190, upload-time = "2026-04-07T07:56:58.636Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/11/0f/cecc60e3430dacc1b6624eccbb3229ff9d2c4643e6d1ba45a5688afa0dcb/agentic_layer_sdk_adk-0.16.0.tar.gz", hash = "sha256:46c4d3a8698981374fa6f57b7336bc1aa17474d8deb4ad930fc69c24a7903828", size = 144187, upload-time = "2026-04-10T14:17:27.454Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/98/37/15de3af5d2ce55c035db5daeda801a4980550e618e6cf0b905ed2d48ad0b/agentic_layer_sdk_adk-0.15.0-py3-none-any.whl", hash = "sha256:52ce172c9e10335083173c978248c739c03d12eb8cb08a9418865c02b4b78482", size = 13162, upload-time = "2026-04-07T07:56:57.239Z" },
+    { url = "https://files.pythonhosted.org/packages/73/c9/5bdb2178460230b4d580a2c07805f00678c109f3ca36565ee3698f841857/agentic_layer_sdk_adk-0.16.0-py3-none-any.whl", hash = "sha256:0aaccd31b74253a473f4db2ec435c65d99e273281314689c23719700da7966dd", size = 13023, upload-time = "2026-04-10T14:17:26.369Z" },
 ]
 
 [[package]]
